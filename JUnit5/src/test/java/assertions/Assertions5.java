@@ -9,9 +9,13 @@ class Assertions5
 {
 	@DisplayName("standart assertions")
 	@Test
-	void test()
+	void test1()
 	{
 		assertEquals(2, 1 + 1, "sum 1+1 must be 2");
+	}
+	
+	void test2()
+	{
 		assertTrue(67 > 24);
 		assertFalse(1 > 12);
 	}
