@@ -2,6 +2,8 @@ package assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,7 @@ class Assertions5
 	
 	void test2()
 	{
-		assertTrue(67 > 24);
-		assertFalse(1 > 12);
+		assertTimeout(Duration.ofMillis(10),
+				() -> {  Thread.sleep(100); });
 	}
 }
