@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +19,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.io.FileHandler;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 class Screenshots
 {
@@ -49,8 +54,11 @@ class Screenshots
 	}
 	
 	@Test
-	void getScreenshotsOfEntirePage()
+	void getScreenshotsOfEntirePage() throws IOException
 	{
-		
+		Screenshot page =  new AShot()
+				.shootingStrategy(ShootingStrategies.viewportPasting(1000))
+				.takeScreenshot(driver);
+		ImageIO.write(page.getImage(), "png", new File("EntirePage.png"));
 	}
 }
