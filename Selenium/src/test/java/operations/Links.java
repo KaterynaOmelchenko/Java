@@ -38,7 +38,8 @@ private WebDriver driver;
 	
 	@Test
 	void test()
-	{List<WebElement> list = driver.findElements(By.tagName("a"));
+	{
+		List<WebElement> list = driver.findElements(By.tagName("a"));
 	// get the number of links
 			int numberOfLinks = list.size();
 			System.out.println("The number of links on the home page are " + numberOfLinks);
