@@ -37,12 +37,32 @@ private WebDriver driver;
 	}
 	
 	@Test
-	void test()
+	void test() throws InterruptedException
 	{
-		List<WebElement> list = driver.findElements(By.tagName("a"));
+			List<WebElement> links = driver.findElements(By.tagName("a"));
 	// get the number of links
-			int numberOfLinks = list.size();
+			int numberOfLinks = links.size();
 			System.out.println("The number of links on the home page are " + numberOfLinks);
+			
+			for (WebElement el: links )
+			{
+				System.out.println( el.getText()+ " : " + el.getAttribute("href"));
+			}
+			
+			//links.forEach(el -> System.out.println(el.getText() +": " el.getAttribute("href")));
+			String link3 = links.get(2).getAttribute("href");
+			System.out.println("link number 3 is " + link3);
+			driver.get(link3);
+			Thread.sleep(4000);
+	}
+	
+	@Test
+	void getPageHTML()
+	{
+		String body = driver.getPageSource();
+		System.out.println("Page HTML code ");
+		System.out.println(body);
+		assertTrue(body.contains("Selenium"));
 	}
 	
 	@AfterEach
