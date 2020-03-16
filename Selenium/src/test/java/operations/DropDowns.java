@@ -35,9 +35,9 @@ private WebDriver driver;
 	}
 	
 	@Test
-	void test() throws InterruptedException
+	void dropdowns() throws InterruptedException
 	{
-		WebElement dropDown = driver.findElement(By.name("dropdown"));
+		WebElement dropDown = driver.findElement(By.name("dropdown"));//??
 		Select s = new Select(dropDown);
 		s.selectByVisibleText("Drop Down Item 6");
 		s.selectByIndex(1);
@@ -47,7 +47,7 @@ private WebDriver driver;
 		Thread.sleep(3000);
 		
 //1
-		List<WebElement> list1 = driver.findElements(By.name("dropdown"));
+		List<WebElement> list1 = driver.findElements(By.name("dropdown"));//??
 		for (WebElement el: list1)
 		{
 			System.out.println(el.getText());
@@ -58,7 +58,16 @@ private WebDriver driver;
 		{
 			System.out.println(el.getText());
 		}
-		
+	}
+	
+	@Test
+	void nultiselect()
+	{
+		WebElement multiselect = driver.findElement(By.className("multipleselect[]"));
+		Select s = new Select(multiselect);
+		s.deselectAll();
+		s.selectByIndex(1);
+		s.selectByIndex(2);
 	}
 	
 	@AfterEach
