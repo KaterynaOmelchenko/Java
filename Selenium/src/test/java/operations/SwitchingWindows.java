@@ -3,6 +3,7 @@ package operations;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterEach;
@@ -13,11 +14,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-class Tables
+class SwitchingWindows
 {
 private WebDriver driver;
 	
@@ -33,27 +33,27 @@ private WebDriver driver;
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.get("http://the-internet.herokuapp.com/tables");
+		driver.get("http://the-internet.herokuapp.com/windows");
 	}
-	
 	@Test
-	void test() 
+	void test()
 	{
-//1	
-		List<WebElement> rows = driver.findElements(By.xpath("//table[2]/tbody/tr"));
-		System.out.println("Number of data rows in table 2: " + rows.size());
+		String tab1 = driver.getWindowHandle();
+		driver.findElement(By.linkText("Click Here")).click();
+		String tab2 = "";
 		
-		for (WebElement el: rows)
+		Set<String> allWindows = driver.getWindowHandles();
+		for (String el: allWindows)
 		{
-			System.out.println(el.getText().split(" ")[3]);
+			if (!el.equals(tab1))
+				tab2 = el;
 		}
-//2	
-		String cellXPath = "";
-		for (int i = 1; i <= rows.size(); i++)
-		{
-			cellXPath = "//table[2]/tbody/tr[" + i + "]/td[4]";
-			System.out.println(driver.findElement(By.xpath(cellXPath)).getText());
-		}
+		
+		driver.switchTo().window(tab2);
+		assertEquals("New Window", driver.getTitle());
+		
+		driver.switchTo().window(tab1);
+		driver.close();
 	}
 	
 	@AfterEach

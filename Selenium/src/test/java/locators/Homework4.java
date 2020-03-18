@@ -1,4 +1,4 @@
-package operations;
+package locators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,11 +13,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-class Tables
+class Homework4
 {
 private WebDriver driver;
 	
@@ -33,27 +32,25 @@ private WebDriver driver;
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.get("http://the-internet.herokuapp.com/tables");
+		driver.get("http://demo.automationtesting.in/WebTable.html");
 	}
-	
 	@Test
-	void test() 
+	void test()
 	{
-//1	
-		List<WebElement> rows = driver.findElements(By.xpath("//table[2]/tbody/tr"));
-		System.out.println("Number of data rows in table 2: " + rows.size());
 		
-		for (WebElement el: rows)
+		List<WebElement> headerRow = driver.findElements(By.xpath("//div[@role='columnheader']"));
+		
+		for (WebElement element: headerRow)
 		{
-			System.out.println(el.getText().split(" ")[3]);
+			System.out.println(element.getText());
 		}
-//2	
-		String cellXPath = "";
-		for (int i = 1; i <= rows.size(); i++)
+		
+		List<WebElement> list = driver.findElements(By.xpath("//div[@role='row']/div[4]/div"));
+		for (WebElement el: list)
 		{
-			cellXPath = "//table[2]/tbody/tr[" + i + "]/td[4]";
-			System.out.println(driver.findElement(By.xpath(cellXPath)).getText());
+			System.out.println(el.getText());
 		}
+	
 	}
 	
 	@AfterEach

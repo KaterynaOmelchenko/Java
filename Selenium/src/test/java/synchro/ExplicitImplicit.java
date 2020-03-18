@@ -1,4 +1,4 @@
-package operations;
+package synchro;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,11 +13,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-class Tables
+class ExplicitImplicit
 {
 private WebDriver driver;
 	
@@ -32,28 +33,18 @@ private WebDriver driver;
 	{
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.get("http://the-internet.herokuapp.com/tables");
+		driver.get("http://the-internet.herokuapp.com/dynamic_loading/2");
 	}
 	
 	@Test
-	void test() 
+	void test()
 	{
-//1	
-		List<WebElement> rows = driver.findElements(By.xpath("//table[2]/tbody/tr"));
-		System.out.println("Number of data rows in table 2: " + rows.size());
+		driver.findElement(By.tagName("button")).click();
 		
-		for (WebElement el: rows)
-		{
-			System.out.println(el.getText().split(" ")[3]);
-		}
-//2	
-		String cellXPath = "";
-		for (int i = 1; i <= rows.size(); i++)
-		{
-			cellXPath = "//table[2]/tbody/tr[" + i + "]/td[4]";
-			System.out.println(driver.findElement(By.xpath(cellXPath)).getText());
-		}
+		WebElement helloWorld = new WebDriverWait(driver, 15).until(ExpectedConditions
+				.visibilityOfElementLocated(By.id("finish")));
+		assertEquals("Hello World!", helloWorld);
+		System.out.println(helloWorld);
 	}
 	
 	@AfterEach
