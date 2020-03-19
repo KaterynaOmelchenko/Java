@@ -65,6 +65,7 @@ private WebDriver driver;
 		}
 		
 		System.out.println("The number of links that contains 'Wedding': " + links.size());
+		assertTrue(links.size() > 0);
 	}
 	
 	@AfterEach
