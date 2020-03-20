@@ -61,8 +61,9 @@ private WebDriver driver;
 		
 		for (WebElement element: links )
 		{
-			System.out.println( element.getText() + " : " + element.getAttribute("href") );
+			System.out.println( element.getText() + ":" + element.getAttribute("href") );
 		}
+		
 		
 		System.out.println("The number of links that contains 'Wedding': " + links.size());
 		assertTrue(links.size() > 0);
