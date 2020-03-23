@@ -20,33 +20,37 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 class ExplicitImplicit
 {
-private WebDriver driver;
-	
+	private WebDriver driver;
+
 	@BeforeAll
 	static void setUpBeforeClass()
 	{
 		WebDriverManager.chromedriver().setup();
 	}
-	
+
 	@BeforeEach
 	void setUp()
 	{
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get("http://the-internet.herokuapp.com/dynamic_loading/2");
+		driver.get("http://the-internet.herokuapp.com/dynamic_loading/1");
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
-	
+
 	@Test
 	void test()
 	{
 		driver.findElement(By.tagName("button")).click();
 		
-		WebElement helloWorld = new WebDriverWait(driver, 15).until(ExpectedConditions
-				.visibilityOfElementLocated(By.id("finish")));
-		assertEquals("Hello World!", helloWorld);
-		System.out.println(helloWorld);
+		  WebElement helloWorld = new WebDriverWait(driver,
+		  15).until(ExpectedConditions .visibilityOfElementLocated(By.id("finish")));
+		  assertEquals("Hello World!", helloWorld.getText());
+		  
+		 
+		//WebElement helloWorld = driver.findElement(By.id("finish"));
+		assertEquals("Hello World!", helloWorld.getText());
 	}
-	
+
 	@AfterEach
 	void tearDown()
 	{
