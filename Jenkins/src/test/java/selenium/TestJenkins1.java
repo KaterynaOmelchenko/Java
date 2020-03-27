@@ -20,6 +20,7 @@ class TestJenkins1
 	static void setUpBeforeClass()
 	{
 		WebDriverManager.chromedriver().setup();
+		
 	}
 	
 	@BeforeEach
