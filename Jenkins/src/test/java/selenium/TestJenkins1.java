@@ -27,7 +27,6 @@ class TestJenkins1
 	void setUp()
 	{
 		driver = new ChromeDriver();
-		
 	}
 	@Test
 	void test()
@@ -36,7 +35,7 @@ class TestJenkins1
 		driver.get("https://pasv.us/en");
 		String welcome = driver.findElement(By.cssSelector(".t480__title.t-title.t-title_xs.t-margin_auto"))
 				.getText();
-		assertEquals("We teach programming\nand QA", welcome );  
+		assertEquals("We teach programming\nand QA", welcome);  
 	}
 	
 	@AfterEach
