@@ -19,8 +19,6 @@ class Assertions5
 	void test2()
 	{
 		assertTimeout(Duration.ofMillis(10),
-				() -> {  
-					Thread.sleep(100); 
-					});
+				() -> { Thread.sleep(100);});
 	}
 }
